@@ -16,56 +16,66 @@ var db = firebase.database();
 var Persons = []
 var Boots = []
 var Costs = []
-window.addEventListener('DOMContentLoaded', function() {
-    this.getPerson();
-    this.getBoots();
-});
 
+this.getPerson();
+this.getBoots();
 /************************* SELECT QUERY IN REALTIME DB FROM USERS COLLECTION *****************/
 function getPerson() {
-    db.ref('users').once('value').then((snapshot) => {
-        this.Persons = snapshot.val()
-    }).then(() => {
-        var table = document.getElementById('PersonTable')
-        console.log(this.Persons)
-        let i = 1;
-        this.Persons.forEach(element => {
-            var row = table.insertRow(i);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            cell1.innerHTML = element.userId;
-            cell2.innerHTML = element.email;
-            cell3.innerHTML = element.username;
-            i += 1
-        });
-    })
+    try {
+        db.ref('users').once('value').then((snapshot) => {
+            this.Persons = snapshot.val()
+        }).then(() => {
+            var table = document.getElementById('PersonTable')
+
+
+            let i = 1;
+            this.Persons.forEach(element => {
+                if (table != null) {
+                    var row = table.insertRow(i);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    cell1.innerHTML = element.userId;
+                    cell2.innerHTML = element.email;
+                    cell3.innerHTML = element.username;
+                    i += 1
+                }
+            })
+        })
+    } catch (err) {
+        console.log(err)
+    }
 }
 /************************* SELECT QUERY IN REALTIME DB FROM BOOTS COLLECTION *****************/
 
 
 function getBoots() {
-    db.ref('boots').once('value').then((snapshot) => {
-        this.Boots = snapshot.val()
-    }).then(() => {
-        var table = document.getElementById('BootsTable')
-        console.log(this.Boots)
-        let i = 1;
-        Object.keys(this.Boots).forEach(key => {
-            let element = this.Boots[key]
-            var row = table.insertRow(i);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            cell1.innerHTML = element.bootname;
-            cell2.innerHTML = element.bootdesc;
-            cell3.innerHTML = element.cost;
-            i += 1
-        });
-    })
+    try {
+        db.ref('boots').once('value').then((snapshot) => {
+            this.Boots = snapshot.val()
+        }).then(() => {
+            var table = document.getElementById('BootsTable')
+            console.log(this.Boots)
+            let i = 1;
+            Object.keys(this.Boots).forEach(key => {
+                let element = this.Boots[key]
+                if (table != null) {
+                    var row = table.insertRow(i);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    cell1.innerHTML = element.bootname;
+                    cell2.innerHTML = element.bootdesc;
+                    cell3.innerHTML = element.cost;
+                    i += 1
+                }
+            })
+        })
+    } catch (err) {
+        console.log(err)
+    }
+
 }
-
-
 
 /************************* INSERT QUERY IN REALTIME DB FROM USERS COLLECTION *****************/
 
@@ -143,6 +153,7 @@ function findOrders() {
         console.log(order)
         order.forEach(key => {
             let boot = this.Boots[Orders[key].bname]
+            console.log(this.Boots)
             let quan = Orders[key].quan
             Costs.push(Number(quan) * Number(boot.cost))
             var row = table.insertRow(i);
