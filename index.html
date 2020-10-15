@@ -11,6 +11,7 @@
 <script src="main.js"></script>
 
 <body>
+    <div class="boots">
     <form class="boot">
         <h1> Boots </h1>
 
@@ -26,6 +27,9 @@
 
         <button onclick="insertBoot()">Insert boot</button>
     </form>
+    <button id="vb" onclick="window.location.href='./boots.html';">View Boots</button>
+</div>
+<div class="persons">
     <form class="person">
         <h1> People </h1>
 
@@ -39,8 +43,11 @@
         <input type="email" id="personmail" name="user_email">
 
         <button onclick="insertPerson()">Insert person</button>
-
     </form>
+
+        <button id="vp" onclick="window.location.href='./person.html';">View person</button>
+    </div>
+    <div class="orders">
     <form class="order">
         <h1> Order </h1>
 
@@ -56,53 +63,8 @@
         <button onclick='insertOrder()'>Place Order</button>
 
     </form>
-    <br>
-
-    <table id='PersonTable' style="width:48%;float:left;border: 1px solid black; margin-right: 10px; border-collapse: collapse;">
-        <caption>Person</caption>
-        <tr>
-            <th>
-                PID
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-                Email
-            </th>
-        </tr>
-    </table>
-
-    <table id='BootsTable' style="width:48%; border: 1px solid black; margin-left: 20px; border-collapse: collapse;">
-        <caption>Boot</caption>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Cost
-            </th>
-        </tr>
-    </table>
-
-    <br>
-    <br>
-    <div style="float: left;">
-
-        <input style="width: 200px;" placeholder="Person ID" type="number" id="personid" name="quan">
-
-        <button style="width: 200px;height: 50px;padding-top: 15px;" onclick="findOrders()">Find</button>
-    </div>
-
-    <table id='PersonalOrders'>
-
-    </table>
-    <div id='TotalDetails'>
-
-    </div>
+    <button id="vo" onclick="window.location.href='./orders.html';">View order</button>
+</div>
 </body>
 
 </html>

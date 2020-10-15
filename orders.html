@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Orders</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-database.js"></script>
+<script src="main.js"></script>
+
+<body>
+    <div>
+
+        <input style="width: 200px;" placeholder="Person ID" type="number" id="personid" name="quan">
+
+        <button style="width: 200px;height: 50px;padding-top: 15px;" onclick="findOrders()">Find</button>
+    </div>
+    <table id='PersonalOrders'>
+
+    </table>
+    <br>
+    <div id='TotalDetails'>
+
+    </div>
+</body>
+
+</html>
