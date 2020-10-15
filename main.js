@@ -156,10 +156,11 @@ function findOrders() {
             cell4.innerHTML = Number(quan) * Number(boot.cost);
             i += 1
         })
-
+        document.getElementById('TotalDetails').innerHTML = ''
         var element = document.createElement("div");
         element.appendChild(document.createTextNode('The Total Amount payable is:' + Costs.reduce(getSum, 0)));
         document.getElementById('TotalDetails').appendChild(element);
+
     }).catch(err => {
         console.log(err)
     })
