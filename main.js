@@ -15,6 +15,7 @@ firebase.analytics();
 var db = firebase.database();
 var Persons = []
 var Boots = []
+var Costs = []
 window.addEventListener('DOMContentLoaded', function() {
     this.getPerson();
     this.getBoots();
@@ -100,4 +101,70 @@ function insertBoot() {
     }).catch(err => {
         console.log(err)
     })
+}
+
+function insertOrder() {
+    let pid = document.getElementById('pid1').value;
+    let bname = document.getElementById('bname').value;
+    let quan = document.getElementById('quan').value
+    let oid = Math.random().toString(36).substring(5);
+    db.ref('orders/' + oid).set({
+        pid: pid,
+        bname: bname,
+        quan: quan
+    }).then(() => {
+        console.log('Hello')
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
+
+function findOrders() {
+    let pid = document.getElementById('personid').value;
+    this.Costs = []
+    var table = document.getElementById('PersonalOrders')
+    table.innerHTML = ''
+    var row = table.insertRow(0);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    cell1.innerHTML = "Boot Name";
+    cell2.innerHTML = "Quantity";
+    cell3.innerHTML = "Price";
+    cell4.innerHTML = "Cost"
+    db.ref('orders').once('value').then((snapshot) => {
+        Orders = snapshot.val()
+    }).then(() => {
+        let i = 1;
+        console.log(Orders)
+        let order = Object.keys(Orders).filter(key => Orders[key].pid === String(pid));
+        console.log(order)
+        order.forEach(key => {
+            let boot = this.Boots[Orders[key].bname]
+            let quan = Orders[key].quan
+            Costs.push(Number(quan) * Number(boot.cost))
+            var row = table.insertRow(i);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            cell1.innerHTML = boot.bootname;
+            cell2.innerHTML = quan;
+            cell3.innerHTML = boot.cost;
+            cell4.innerHTML = Number(quan) * Number(boot.cost);
+            i += 1
+        })
+
+        var element = document.createElement("div");
+        element.appendChild(document.createTextNode('The Total Amount payable is:' + Costs.reduce(getSum, 0)));
+        document.getElementById('TotalDetails').appendChild(element);
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
+function getSum(total, num) {
+    return total + Math.round(num);
 }
