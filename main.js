@@ -13,6 +13,60 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 var db = firebase.database();
+var Persons = []
+var Boots = []
+window.addEventListener('DOMContentLoaded', function() {
+    this.getPerson();
+    this.getBoots();
+});
+
+/************************* SELECT QUERY IN REALTIME DB FROM USERS COLLECTION *****************/
+function getPerson() {
+    db.ref('users').once('value').then((snapshot) => {
+        this.Persons = snapshot.val()
+    }).then(() => {
+        var table = document.getElementById('PersonTable')
+        console.log(this.Persons)
+        let i = 1;
+        this.Persons.forEach(element => {
+            var row = table.insertRow(i);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            cell1.innerHTML = element.userId;
+            cell2.innerHTML = element.email;
+            cell3.innerHTML = element.username;
+            i += 1
+        });
+    })
+}
+/************************* SELECT QUERY IN REALTIME DB FROM BOOTS COLLECTION *****************/
+
+
+function getBoots() {
+    db.ref('boots').once('value').then((snapshot) => {
+        this.Boots = snapshot.val()
+    }).then(() => {
+        var table = document.getElementById('BootsTable')
+        console.log(this.Boots)
+        let i = 1;
+        Object.keys(this.Boots).forEach(key => {
+            let element = this.Boots[key]
+            var row = table.insertRow(i);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            cell1.innerHTML = element.bootname;
+            cell2.innerHTML = element.bootdesc;
+            cell3.innerHTML = element.cost;
+            i += 1
+        });
+    })
+}
+
+
+
+/************************* INSERT QUERY IN REALTIME DB FROM USERS COLLECTION *****************/
 
 
 function insertPerson() {
@@ -30,6 +84,7 @@ function insertPerson() {
     })
 }
 
+/************************* INSERT QUERY IN REALTIME DB FROM BOOTS COLLECTION *****************/
 
 function insertBoot() {
 
